@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watchAll",
-    "dev": "nodemon -r dotenv/config ./src/index.js"
+    "dev": "nodemon -r dotenv/config ./src ",
+    "start": "node ./src/index.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "watch": "NODE_OPTIONS=--experimental-vm-modules jest --watchAll"
   },
   "keywords": [],
   "author": "",
