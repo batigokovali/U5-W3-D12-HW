@@ -1,5 +1,5 @@
 {
-  "name": "epicode-u5-d12-4",
+  "name": "u5-w3-d12-hw",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "nodemon -r dotenv/config ./src ",
     "start": "node ./src/index.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "watch": "NODE_OPTIONS=--experimental-vm-modules jest --watchAll"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watchAll"
   },
   "keywords": [],
   "author": "",

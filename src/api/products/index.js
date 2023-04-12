@@ -1,13 +1,13 @@
 import express from "express"
-import createError from "http-errors"
-import ProductsRouter from "./model.js"
+import createHttpError from "http-errors"
+import ProductsModel from "./model.js"
 
 const productsRouter = express.Router()
 
 productsRouter.post("/", async (req, res, next) => {
   try {
-    const newResource = new ProductsRouter(req.body)
-    const { _id } = await newResource.save()
+    const newProduct = new ProductsModel(req.body)
+    const { _id } = await newProduct.save()
     res.status(201).send({ _id })
   } catch (error) {
     next(error)
@@ -16,8 +16,8 @@ productsRouter.post("/", async (req, res, next) => {
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const resources = await ProductsRouter.find()
-    res.send(resources)
+    const product = await ProductsModel.find()
+    res.send(product)
   } catch (error) {
     next(error)
   }
@@ -25,11 +25,11 @@ productsRouter.get("/", async (req, res, next) => {
 
 productsRouter.get("/:id", async (req, res, next) => {
   try {
-    const resource = await ProductsRouter.findById(req.params.id)
-    if (resource) {
-      res.send(resource)
+    const product = await ProductsModel.findById(req.params.id)
+    if (product) {
+      res.send(product)
     } else {
-      next(createError(404, `Resource with id ${req.params.id} not found!`))
+      next(createHttpError(404, `Product with id ${req.params.id} not found!`))
     }
   } catch (error) {
     next(error)
@@ -38,11 +38,11 @@ productsRouter.get("/:id", async (req, res, next) => {
 
 productsRouter.put("/:id", async (req, res, next) => {
   try {
-    const updatedResource = await ProductsRouter.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-    if (updatedResource) {
-      res.send(updatedResource)
+    const updatedProduct = await ProductsModel.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    if (updatedProduct) {
+      res.send(updatedProduct)
     } else {
-      next(createError(404, `Resource with id ${req.params.id} not found!`))
+      next(createHttpError(404, `Product with id ${req.params.id} not found!`))
     }
   } catch (error) {
     next(error)
@@ -51,11 +51,11 @@ productsRouter.put("/:id", async (req, res, next) => {
 
 productsRouter.delete("/:id", async (req, res, next) => {
   try {
-    const deletedResource = await ProductsRouter.findByIdAndUpdate(req.params.id)
-    if (deletedResource) {
+    const deletedProduct = await ProductsModel.findByIdAndUpdate(req.params.id)
+    if (deletedProduct) {
       res.status(204).send()
     } else {
-      next(createError(404, `Resource with id ${req.params.id} not found!`))
+      next(createHttpError(404, `Product with id ${req.params.id} not found!`))
     }
   } catch (error) {
     next(error)
